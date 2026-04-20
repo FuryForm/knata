@@ -1,0 +1,47 @@
+[
+  {
+    "description": "$map doubles each element",
+    "expression": "$map([1,2,3], function($v) { $v * 2 })",
+    "result": [2, 4, 6]
+  },
+  {
+    "description": "$map with index",
+    "expression": "$map([\"a\",\"b\",\"c\"], function($v, $i) { $i & \":\" & $v })",
+    "result": ["0:a","1:b","2:c"]
+  },
+  {
+    "description": "$filter keeps even numbers",
+    "expression": "$filter([1,2,3,4,5], function($v) { $v % 2 = 0 })",
+    "result": [2, 4]
+  },
+  {
+    "description": "$reduce sum",
+    "expression": "$reduce([1,2,3,4], function($a,$b) { $a + $b })",
+    "result": 10
+  },
+  {
+    "description": "$reduce with initial value",
+    "expression": "$reduce([1,2,3], function($a,$b) { $a + $b }, 10)",
+    "result": 16
+  },
+  {
+    "description": "$single finds exactly one match",
+    "expression": "$single([1,2,3,4], function($v) { $v = 3 })",
+    "result": 3
+  },
+  {
+    "description": "lambda closure captures outer variable",
+    "expression": "($x := 5; $add := function($n) { $n + $x }; $add(3))",
+    "result": 8
+  },
+  {
+    "description": "higher order: partial application",
+    "expression": "($double := function($n) { $n * 2 }; $map([1,2,3], $double))",
+    "result": [2, 4, 6]
+  },
+  {
+    "description": "function composition ~>",
+    "expression": "[1,2,3] ~> $reverse() ~> $count()",
+    "result": 3
+  }
+]

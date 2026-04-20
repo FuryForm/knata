@@ -1,0 +1,42 @@
+[
+  {
+    "description": "simple conditional true branch",
+    "expression": "v > 5 ? \"big\" : \"small\"",
+    "data": { "v": 10 },
+    "result": "big"
+  },
+  {
+    "description": "simple conditional false branch",
+    "expression": "v > 5 ? \"big\" : \"small\"",
+    "data": { "v": 3 },
+    "result": "small"
+  },
+  {
+    "description": "nested conditional",
+    "expression": "v = 1 ? \"one\" : v = 2 ? \"two\" : \"other\"",
+    "data": { "v": 2 },
+    "result": "two"
+  },
+  {
+    "description": "null coalescing ??",
+    "expression": "missing ?? \"default\"",
+    "data": { "value": 1 },
+    "result": "default"
+  },
+  {
+    "description": "null coalescing ?? - left present",
+    "expression": "value ?? \"default\"",
+    "data": { "value": 42 },
+    "result": 42
+  },
+  {
+    "description": "block expression",
+    "expression": "($a := 2; $b := 3; $a + $b)",
+    "result": 5
+  },
+  {
+    "description": "variable binding and use",
+    "expression": "$x := 100; $x * 2",
+    "result": 200
+  }
+]

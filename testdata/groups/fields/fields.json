@@ -1,0 +1,45 @@
+[
+  {
+    "description": "simple field reference",
+    "expression": "foo",
+    "data": { "foo": "bar" },
+    "result": "bar"
+  },
+  {
+    "description": "nested field reference",
+    "expression": "a.b",
+    "data": { "a": { "b": "hello" } },
+    "result": "hello"
+  },
+  {
+    "description": "missing field returns undefined",
+    "expression": "foo",
+    "data": { "bar": 1 },
+    "result": null
+  },
+  {
+    "description": "array of objects - map field",
+    "expression": "$.a",
+    "data": [ { "a": 1 }, { "a": 2 } ],
+    "result": [1, 2]
+  },
+  {
+    "description": "wildcard returns all values",
+    "expression": "*",
+    "data": { "a": 1, "b": 2 },
+    "result": [1, 2]
+  },
+  {
+    "description": "descendants **",
+    "expression": "**.price",
+    "data": {
+      "Account": {
+        "Order": [
+          { "Product": { "price": 10 } },
+          { "Product": { "price": 20 } }
+        ]
+      }
+    },
+    "result": [10, 20]
+  }
+]

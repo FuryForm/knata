@@ -1,0 +1,82 @@
+[
+  {
+    "description": "$sum of an array",
+    "expression": "$sum([1,2,3,4,5])",
+    "result": 15
+  },
+  {
+    "description": "$average of an array",
+    "expression": "$average([1,2,3,4,5])",
+    "result": 3
+  },
+  {
+    "description": "$max of an array",
+    "expression": "$max([1,2,3,4,5])",
+    "result": 5
+  },
+  {
+    "description": "$min of an array",
+    "expression": "$min([1,2,3,4,5])",
+    "result": 1
+  },
+  {
+    "description": "$floor",
+    "expression": "$floor(3.7)",
+    "result": 3
+  },
+  {
+    "description": "$ceil",
+    "expression": "$ceil(3.2)",
+    "result": 4
+  },
+  {
+    "description": "$round up",
+    "expression": "$round(3.6)",
+    "result": 4
+  },
+  {
+    "description": "$round down",
+    "expression": "$round(3.4)",
+    "result": 3
+  },
+  {
+    "description": "$round banker half-to-even: 0.5 → 0",
+    "expression": "$round(0.5)",
+    "result": 0
+  },
+  {
+    "description": "$round banker half-to-even: 1.5 → 2",
+    "expression": "$round(1.5)",
+    "result": 2
+  },
+  {
+    "description": "$abs negative",
+    "expression": "$abs(-5)",
+    "result": 5
+  },
+  {
+    "description": "$abs positive",
+    "expression": "$abs(5)",
+    "result": 5
+  },
+  {
+    "description": "$power",
+    "expression": "$power(2, 10)",
+    "result": 1024
+  },
+  {
+    "description": "$sqrt",
+    "expression": "$sqrt(4)",
+    "result": 2
+  },
+  {
+    "description": "$formatBase decimal",
+    "expression": "$formatBase(255, 16)",
+    "result": "ff"
+  },
+  {
+    "description": "$formatBase binary",
+    "expression": "$formatBase(10, 2)",
+    "result": "1010"
+  }
+]

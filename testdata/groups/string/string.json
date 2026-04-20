@@ -1,0 +1,117 @@
+[
+  {
+    "description": "$length",
+    "expression": "$length(\"hello\")",
+    "result": 5
+  },
+  {
+    "description": "$uppercase",
+    "expression": "$uppercase(\"hello\")",
+    "result": "HELLO"
+  },
+  {
+    "description": "$lowercase",
+    "expression": "$lowercase(\"HELLO\")",
+    "result": "hello"
+  },
+  {
+    "description": "$trim",
+    "expression": "$trim(\"  hello  \")",
+    "result": "hello"
+  },
+  {
+    "description": "$substring from start",
+    "expression": "$substring(\"hello world\", 6)",
+    "result": "world"
+  },
+  {
+    "description": "$substring with length",
+    "expression": "$substring(\"hello\", 0, 3)",
+    "result": "hel"
+  },
+  {
+    "description": "$substring negative start",
+    "expression": "$substring(\"hello\", -3)",
+    "result": "llo"
+  },
+  {
+    "description": "$substringBefore",
+    "expression": "$substringBefore(\"hello\", \"lo\")",
+    "result": "hel"
+  },
+  {
+    "description": "$substringAfter",
+    "expression": "$substringAfter(\"hello\", \"hel\")",
+    "result": "lo"
+  },
+  {
+    "description": "$contains true",
+    "expression": "$contains(\"hello\", \"ell\")",
+    "result": true
+  },
+  {
+    "description": "$contains false",
+    "expression": "$contains(\"hello\", \"xyz\")",
+    "result": false
+  },
+  {
+    "description": "$split by comma",
+    "expression": "$split(\"a,b,c\", \",\")",
+    "result": ["a", "b", "c"]
+  },
+  {
+    "description": "$split with limit",
+    "expression": "$split(\"a,b,c\", \",\", 2)",
+    "result": ["a", "b"]
+  },
+  {
+    "description": "$join without separator",
+    "expression": "$join([\"a\",\"b\",\"c\"])",
+    "result": "abc"
+  },
+  {
+    "description": "$join with separator",
+    "expression": "$join([\"a\",\"b\",\"c\"], \"-\")",
+    "result": "a-b-c"
+  },
+  {
+    "description": "$replace string with string",
+    "expression": "$replace(\"hello world\", \"world\", \"there\")",
+    "result": "hello there"
+  },
+  {
+    "description": "$replace regex with string",
+    "expression": "$replace(\"hello\", /l/g, \"r\")",
+    "result": "herro"
+  },
+  {
+    "description": "$string from number",
+    "expression": "$string(42)",
+    "result": "42"
+  },
+  {
+    "description": "$string from boolean",
+    "expression": "$string(true)",
+    "result": "true"
+  },
+  {
+    "description": "$pad right",
+    "expression": "$pad(\"hello\", 8)",
+    "result": "hello   "
+  },
+  {
+    "description": "$pad left",
+    "expression": "$pad(\"hello\", -8)",
+    "result": "   hello"
+  },
+  {
+    "description": "$base64encode",
+    "expression": "$base64encode(\"hello\")",
+    "result": "aGVsbG8="
+  },
+  {
+    "description": "$base64decode",
+    "expression": "$base64decode(\"aGVsbG8=\")",
+    "result": "hello"
+  }
+]

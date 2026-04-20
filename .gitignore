@@ -1,0 +1,41 @@
+.gradle/
+/build/
+/.idea/
+/.vscode/
+.gradle/
+/local.properties
+/.DS_Store
+/*.iml
+/*.hprof
+
+# Android
+**/build/
+**/captures/
+**/generated/
+**/bin/
+**/obj/
+
+# Kotlin
+*.kotlin_module
+*.kts
+
+# Gradle wrapper
+gradle-wrapper.jar
+
+# IDE
+*.log
+*.tmp
+*.bak
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Kotlin daemon
+.kotlindb/
+
+# JitPack logs
+jitpack.log

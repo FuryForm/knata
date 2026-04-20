@@ -1,0 +1,67 @@
+[
+  {
+    "description": "$keys of object",
+    "expression": "$keys({\"a\":1,\"b\":2})",
+    "result": ["a","b"]
+  },
+  {
+    "description": "$values of object",
+    "expression": "$values({\"a\":1,\"b\":2})",
+    "result": [1,2]
+  },
+  {
+    "description": "$lookup existing key",
+    "expression": "$lookup({\"a\":1,\"b\":2}, \"a\")",
+    "result": 1
+  },
+  {
+    "description": "$lookup missing key returns undefined",
+    "expression": "$lookup({\"a\":1}, \"c\")",
+    "result": null
+  },
+  {
+    "description": "$spread",
+    "expression": "$spread({\"a\":1,\"b\":2})",
+    "result": [{"a":1},{"b":2}]
+  },
+  {
+    "description": "$merge two objects",
+    "expression": "$merge([{\"a\":1},{\"b\":2}])",
+    "result": {"a":1,"b":2}
+  },
+  {
+    "description": "$merge - last wins",
+    "expression": "$merge([{\"a\":1},{\"a\":2}])",
+    "result": {"a":2}
+  },
+  {
+    "description": "$type of string",
+    "expression": "$type(\"hello\")",
+    "result": "string"
+  },
+  {
+    "description": "$type of number",
+    "expression": "$type(42)",
+    "result": "number"
+  },
+  {
+    "description": "$type of boolean",
+    "expression": "$type(true)",
+    "result": "boolean"
+  },
+  {
+    "description": "$type of array",
+    "expression": "$type([1,2])",
+    "result": "array"
+  },
+  {
+    "description": "$type of object",
+    "expression": "$type({\"a\":1})",
+    "result": "object"
+  },
+  {
+    "description": "$type of null",
+    "expression": "$type(null)",
+    "result": "null"
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "description": "JSONata-js style example: build full names from people array",
+    "expression": "people.{ \"fullName\": first & ' ' & last }",
+    "data": {
+      "people": [
+        { "first": "John", "last": "Smith" },
+        { "first": "Jane", "last": "Doe" }
+      ]
+    },
+    "result": [
+      { "fullName": "John Smith" },
+      { "fullName": "Jane Doe" }
+    ]
+  }
+]

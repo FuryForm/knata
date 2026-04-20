@@ -1,0 +1,32 @@
+[
+  {
+    "description": "predicate numeric index",
+    "expression": "foo[0]",
+    "data": { "foo": ["a","b","c"] },
+    "result": "a"
+  },
+  {
+    "description": "predicate last element -1",
+    "expression": "foo[-1]",
+    "data": { "foo": ["a","b","c"] },
+    "result": "c"
+  },
+  {
+    "description": "predicate boolean filter",
+    "expression": "foo[v > 1]",
+    "data": { "foo": [ {"v":1}, {"v":2}, {"v":3} ] },
+    "result": [ {"v":2}, {"v":3} ]
+  },
+  {
+    "description": "predicate single match returns scalar",
+    "expression": "foo[v = 2]",
+    "data": { "foo": [ {"v":1}, {"v":2}, {"v":3} ] },
+    "result": {"v":2}
+  },
+  {
+    "description": "expr[] wraps scalar in array",
+    "expression": "foo[]",
+    "data": { "foo": "bar" },
+    "result": ["bar"]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "description": "simple numeric literal",
+    "expression": "1",
+    "result": 1
+  },
+  {
+    "description": "negative number",
+    "expression": "-1",
+    "result": -1
+  },
+  {
+    "description": "floating point number",
+    "expression": "1.5",
+    "result": 1.5
+  },
+  {
+    "description": "string literal",
+    "expression": "\"hello\"",
+    "result": "hello"
+  },
+  {
+    "description": "true literal",
+    "expression": "true",
+    "result": true
+  },
+  {
+    "description": "false literal",
+    "expression": "false",
+    "result": false
+  },
+  {
+    "description": "null literal",
+    "expression": "null",
+    "result": null
+  }
+]

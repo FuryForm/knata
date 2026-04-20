@@ -1,0 +1,47 @@
+[
+  {
+    "description": "1 + 2",
+    "expression": "1 + 2",
+    "result": 3
+  },
+  {
+    "description": "3 - 2",
+    "expression": "3 - 2",
+    "result": 1
+  },
+  {
+    "description": "2 * 3",
+    "expression": "2 * 3",
+    "result": 6
+  },
+  {
+    "description": "5 / 2",
+    "expression": "5 / 2",
+    "result": 2.5
+  },
+  {
+    "description": "7 % 3",
+    "expression": "7 % 3",
+    "result": 1
+  },
+  {
+    "description": "precedence: 2 + 3 * 4 = 14",
+    "expression": "2 + 3 * 4",
+    "result": 14
+  },
+  {
+    "description": "precedence: (2 + 3) * 4 = 20",
+    "expression": "(2 + 3) * 4",
+    "result": 20
+  },
+  {
+    "description": "unary negation",
+    "expression": "-3 + 5",
+    "result": 2
+  },
+  {
+    "description": "string concatenation",
+    "expression": "\"hello\" & \" \" & \"world\"",
+    "result": "hello world"
+  }
+]
