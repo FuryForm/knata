@@ -37,6 +37,33 @@ On Windows:
 .\gradlew.bat installDebug
 ```
 
+## Example Usage
+
+Use Knata directly from Kotlin to evaluate a JSONata expression against parsed JSON data.
+
+```kotlin
+import com.furyform.knata.Knata
+import kotlinx.serialization.json.Json
+
+val json = """
+{
+  "example": [
+    { "value": 4 },
+    { "value": 7 },
+    { "value": 13 }
+  ]
+}
+"""
+
+val jsonElement = Json.parseToJsonElement(json)
+val data = jsonElementToKotlin(jsonElement)
+val expression = "$sum(example.value)"
+val result = Knata.evaluate(expression, data)
+println(result)
+```
+
+> The `jsonElementToKotlin` helper converts `JsonElement` values into native Kotlin objects that Knata can evaluate.
+
 ## Publish on JitPack
 
 This repository includes the required `jitpack.yml` configuration. To use Knata from JitPack, add the following to your Gradle project:
