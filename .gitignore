@@ -18,9 +18,6 @@
 # Kotlin
 *.kotlin_module
 
-# Gradle wrapper
-gradle-wrapper.jar
-
 # IDE
 *.log
 *.tmp
