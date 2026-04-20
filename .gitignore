@@ -17,7 +17,6 @@
 
 # Kotlin
 *.kotlin_module
-*.kts
 
 # Gradle wrapper
 gradle-wrapper.jar
