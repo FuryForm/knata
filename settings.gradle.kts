@@ -15,5 +15,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "knata"
-include(":knata")
-include(":sample")
+if (System.getenv("JITPACK") == null) {
+    include(":sample")
+}

@@ -37,7 +37,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":knata"))
+    implementation(project(":"))
     implementation(libs.kotlinx.serialization.json)
 
     val composeBom = platform(libs.compose.bom)
