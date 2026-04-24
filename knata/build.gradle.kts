@@ -5,7 +5,7 @@ plugins {
     `maven-publish`
 }
 
-group = "io.github.your-username"   // ← replace with your GitHub username
+group = "com.github.FuryForm"
 version = "0.1.0"
 
 kotlin {
@@ -67,7 +67,7 @@ afterEvaluate {
             pom {
                 name.set("Knata")
                 description.set("Pure Kotlin Multiplatform JSONata expression engine")
-                url.set("https://github.com/your-username/knata")  // ← update
+                url.set("https://github.com/FuryForm/knata")
                 licenses {
                     license {
                         name.set("MIT License")
