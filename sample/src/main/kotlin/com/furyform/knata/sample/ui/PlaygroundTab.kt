@@ -179,7 +179,7 @@ private fun QuickReferenceChips(onPick: (String) -> Unit) {
         Pair("String fn", "\$string(\$sum(example.value))"),
         Pair("Ternary",   "example[value > 10] ? \"big\" : \"small\""),
         Pair("Coalesce",  "example.value[0] ?? 0"),
-        Pair("Concat",    "\$join(example.value, \", \"")"),
+        Pair("Concat",    "\$join(example.value, \", \")"),
         Pair("Sort",      "\$sort(example.value)"),
     )
 
