@@ -26,8 +26,9 @@ internal fun evalBinary(node: Node.Binary, focus: Any?, env: Environment): Any? 
         "-"  -> numericOp(lhs, rhs, node.op, node.pos) { a, b -> a - b }
         "*"  -> numericOp(lhs, rhs, node.op, node.pos) { a, b -> a * b }
         "/"  -> {
-            val a = requireNum(lhs, "left",  node.op, node.pos)
-            val b = requireNum(rhs, "right", node.op, node.pos)
+            if (lhs == null || rhs == null) return null
+            val a = toNumber(lhs) ?: throw JSONataException.T2001(node.pos, node.op)
+            val b = toNumber(rhs) ?: throw JSONataException.T2002(node.pos, node.op)
             if (b == 0.0) throw JSONataException.RuntimeError("Division by zero", "D3001")
             a / b
         }
@@ -50,9 +51,11 @@ internal fun evalBinary(node: Node.Binary, focus: Any?, env: Environment): Any? 
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-private fun numericOp(lhs: Any?, rhs: Any?, op: String, pos: Int, fn: (Double, Double) -> Double): Double {
-    val a = requireNum(lhs, "left",  op, pos)
-    val b = requireNum(rhs, "right", op, pos)
+private fun numericOp(lhs: Any?, rhs: Any?, op: String, pos: Int, fn: (Double, Double) -> Double): Double? {
+    // JSONata spec: arithmetic on undefined operand → undefined (null), not an error
+    if (lhs == null || rhs == null) return null
+    val a = toNumber(lhs) ?: throw JSONataException.T2001(pos, op)
+    val b = toNumber(rhs) ?: throw JSONataException.T2002(pos, op)
     return fn(a, b)
 }
 

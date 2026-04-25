@@ -63,6 +63,53 @@ class KnataSmokeTest {
         assertEquals(listOf(1.0, 2.0, 3.0), eval("items", data))
     }
 
+    // ── Field names with special characters (backtick quoting) ───────────────
+
+    /**
+     * JSONata requires backtick quoting for field names that contain characters
+     * which are not valid in an unquoted identifier (letters, digits, _, $).
+     * Field names with hyphens (-) are a common case.
+     */
+    @Test fun backtickField_hyphen() =
+        assertEquals("bar", eval("`field-name`", mapOf("field-name" to "bar")))
+
+    @Test fun backtickField_hyphen_nested() =
+        assertEquals("val", eval("`parent-obj`.`child-key`",
+            mapOf("parent-obj" to mapOf("child-key" to "val"))))
+
+    @Test fun backtickField_spaces() =
+        assertEquals(42.0, eval("`my field`", mapOf("my field" to 42.0)))
+
+    @Test fun backtickField_dots() =
+        assertEquals("ok", eval("`a.b.c`", mapOf("a.b.c" to "ok")))
+
+    @Test fun backtickField_numbers_start() =
+        assertEquals("x", eval("`1field`", mapOf("1field" to "x")))
+
+    @Test fun backtickField_unicode() =
+        assertEquals("yes", eval("`ภาษา`", mapOf("ภาษา" to "yes")))
+
+    /** Without backticks, `field-name` is parsed as subtraction — NOT a field lookup. */
+    @Test fun bareHyphenName_isSubtraction() {
+        // "field - name" where both are undefined → null - null → null
+        assertNull(eval("field-name", mapOf("field-name" to "bar")))
+    }
+
+    @Test fun backtickField_inPredicate() {
+        val data = mapOf("items" to listOf(
+            mapOf("item-id" to 1.0, "v" to "a"),
+            mapOf("item-id" to 2.0, "v" to "b"),
+        ))
+        val result = eval("items[`item-id` = 1].v", data)
+        assertEquals("a", result)
+    }
+
+    @Test fun backtickField_inObjectConstructor() {
+        val result = eval("{\"id\": `my-id`}", mapOf("my-id" to "xyz"))
+        @Suppress("UNCHECKED_CAST")
+        assertEquals("xyz", (result as Map<String, Any?>)["id"])
+    }
+
     // ── Array constructor ─────────────────────────────────────────────────────
 
     @Test fun arrayConstructor() = assertEquals(listOf(1.0, 2.0, 3.0), eval("[1, 2, 3]"))
