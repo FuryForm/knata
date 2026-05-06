@@ -1,6 +1,8 @@
 package com.furyform.knata.evaluator
 
 import com.furyform.knata.JSONataException
+import com.furyform.knata.adapter.JsonIndexNode
+import com.furyform.knata.adapter.toKnataValue
 import com.furyform.knata.parser.Node
 
 /**
@@ -94,12 +96,27 @@ internal fun evalVariable(name: String, env: Environment): Any? {
 
 internal fun evalName(name: String, focus: Any?): Any? {
     val f = unwrapSingle(focus)
-    return when (f) {
-        is Map<*, *> -> {
+    return when {
+        f is JsonIndexNode && f.isObject -> {
+            f.childByKey(name)?.toKnataValue()
+        }
+        f is JsonIndexNode && f.isArray -> {
+            val seq = Sequence()
+            var count = 0
+            for (child in f.children()) {
+                if (++count and 0x1FFF == 0) {
+                    if (Thread.interrupted()) throw JSONataException.T1001("Evaluation cancelled")
+                }
+                val v = evalName(name, child)
+                if (v != null) seq.add(v)
+            }
+            collapseSequence(seq)
+        }
+        f is Map<*, *> -> {
             @Suppress("UNCHECKED_CAST")
             (f as Map<String, Any?>)[name]
         }
-        is List<*>   -> {
+        f is List<*>   -> {
             // Auto-map through arrays
             val seq = Sequence()
             for (item in f) {
@@ -108,7 +125,10 @@ internal fun evalName(name: String, focus: Any?): Any? {
             }
             collapseSequence(seq)
         }
-        else -> null
+        else -> when (f) {
+            is JsonIndexNode -> f.toKnataValue()  // leaf primitive
+            else -> null
+        }
     }
 }
 
@@ -116,8 +136,28 @@ internal fun evalName(name: String, focus: Any?): Any? {
 
 internal fun evalWildcard(focus: Any?): Any? {
     val f = unwrapSingle(focus)
-    return when (f) {
-        is Map<*, *> -> {
+    return when {
+        f is JsonIndexNode && f.isObject -> {
+            val all = f.children().filterNotNull().toList()
+            when (all.size) {
+                0    -> null
+                1    -> all[0]
+                else -> all
+            }
+        }
+        f is JsonIndexNode && f.isArray -> {
+            val seq = Sequence()
+            var count = 0
+            for (child in f.children()) {
+                if (++count and 0x1FFF == 0) {
+                    if (Thread.interrupted()) throw JSONataException.T1001("Evaluation cancelled")
+                }
+                val v = evalWildcard(child)
+                if (v != null) seq.add(v)
+            }
+            collapseSequence(seq)
+        }
+        f is Map<*, *> -> {
             @Suppress("UNCHECKED_CAST")
             val values = (f as Map<String, Any?>).values.filter { it != null }
             when (values.size) {
@@ -126,7 +166,7 @@ internal fun evalWildcard(focus: Any?): Any? {
                 else -> values
             }
         }
-        is List<*>   -> {
+        f is List<*>   -> {
             val seq = Sequence()
             for (item in f) {
                 val v = evalWildcard(item)
@@ -151,8 +191,14 @@ internal fun evalDescendants(focus: Any?): Any? {
 }
 
 private fun collectDescendants(value: Any?, out: MutableList<Any?>) {
-    when (value) {
-        is Map<*, *> -> {
+    when {
+        value is JsonIndexNode -> {
+            for (child in value.children()) {
+                out.add(child)
+                collectDescendants(child, out)
+            }
+        }
+        value is Map<*, *> -> {
             @Suppress("UNCHECKED_CAST")
             for (v in (value as Map<String, Any?>).values) {
                 if (v != null) {
@@ -161,7 +207,7 @@ private fun collectDescendants(value: Any?, out: MutableList<Any?>) {
                 }
             }
         }
-        is List<*> -> {
+        value is List<*> -> {
             for (item in value) {
                 collectDescendants(item, out)
             }

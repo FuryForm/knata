@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Code
@@ -12,8 +11,8 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import com.furyform.knata.sample.ui.theme.KnataTheme
 import com.furyform.knata.sample.ui.ExamplesTab
+import com.furyform.knata.sample.ui.KnataTheme
 import com.furyform.knata.sample.ui.PlaygroundTab
 
 class MainActivity : ComponentActivity() {

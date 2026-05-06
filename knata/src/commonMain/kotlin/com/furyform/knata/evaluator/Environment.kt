@@ -9,6 +9,13 @@ package com.furyform.knata.evaluator
 class Environment(val parent: Environment? = null) {
     private val bindings = mutableMapOf<String, Any?>()
 
+    /**
+     * Optional cancellation check function. Set by the caller (e.g. FuryJSON)
+     * to periodically check if the evaluation should be cancelled. Checked
+     * every ~8K iterations in array walk loops to prevent ANR on large docs.
+     */
+    var cancellationCheck: (() -> Boolean)? = parent?.cancellationCheck
+
     /** Look up a name, walking the parent chain. */
     fun lookup(name: String): Any? {
         return if (bindings.containsKey(name)) bindings[name]

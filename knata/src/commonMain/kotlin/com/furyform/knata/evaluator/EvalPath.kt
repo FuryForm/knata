@@ -1,6 +1,7 @@
 package com.furyform.knata.evaluator
 
 import com.furyform.knata.JSONataException
+import com.furyform.knata.adapter.JsonIndexNode
 import com.furyform.knata.parser.Node
 
 /**
@@ -27,9 +28,28 @@ internal fun evalPath(node: Node.Path, focus: Any?, env: Environment): Any? {
  * Auto-maps through arrays and collapses the result.
  */
 internal fun evalStep(step: Node, focus: Any?, env: Environment): Any? {
-    // If focus is an array, map the step across each element
     val f = focus
     return when {
+        // JsonIndexNode array — auto-map across children without List wrappers
+        f is JsonIndexNode && f.isArray && step !is Node.Predicate && step !is Node.ArrayConstructor -> {
+            val seq = Sequence()
+            var idx = 0
+            var count = 0
+            for (item in f.children()) {
+                if (++count and 0x1FFF == 0) {
+                    if (Thread.interrupted()) throw JSONataException.T1001("Evaluation cancelled")
+                }
+                val child = env.child()
+                child.bind("$", item)
+                if (step is Node.IndexBind) {
+                    child.bind(step.varName, idx.toDouble())
+                }
+                val v = evalStepSingle(step, item, child)
+                if (v != null) seq.add(flatten1(v))
+                idx++
+            }
+            collapseSequence(seq)
+        }
         f is List<*> && step !is Node.Predicate && step !is Node.ArrayConstructor -> {
             val seq = Sequence()
             for ((idx, item) in f.withIndex()) {
